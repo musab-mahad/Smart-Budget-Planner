@@ -20,6 +20,12 @@ body {
   color: #1e293b;
 }
 
+/* MAIN */
+main {
+  flex: 1;
+  padding: 40px 0;
+}
+
 /* CONTAINER */
 .container {
   width: 90%;
@@ -77,4 +83,42 @@ body {
   color: white;
   text-align: center;
   padding: 20px;
+}
+
+/* SUMMARY CARDS */
+.summary {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 250px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+}
+.card h3 {
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.income {
+  border-left: 6px solid #22c55e;
+}
+.savings {
+  border-left: 6px solid #0ea5e9;
+}
+.expense {
+  border-left: 6px solid #ef4444;
+}
+.balance {
+  border-left: 6px solid #ead237;
 }
