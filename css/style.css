@@ -70,3 +70,11 @@ body {
   color: white;
   font-weight: 600;
 }
+
+/* FOOTER */
+.footer {
+  background: #0f172a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
