@@ -163,10 +163,7 @@ if (form) {
   });
 }
 
-// ===============================
 // TRANSACTIONS PAGE
-// ===============================
-
 const transactionList = document.getElementById("transactionList");
 
 if (transactionList) {
