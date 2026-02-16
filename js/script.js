@@ -242,3 +242,8 @@ function deleteTransaction(id) {
   saveTransactions(transactions);
   renderTransactions();
 }
+
+function editTransaction(id) {
+  localStorage.setItem("editId", id);
+  window.location.href = "add.html";
+}
