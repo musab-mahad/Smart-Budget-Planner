@@ -26,7 +26,54 @@
     </header>
 
     <main class="container">
-      <h2>Add New Transaction</h2>
+      <section class="form-section">
+        <h2>Add New Transaction</h2>
+
+        <form id="budgetForm" class="budget-form">
+          <div class="form-group">
+            <label for="type">Type</label>
+            <select id="type" required>
+              <option value="">Select Type</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+              <option value="savings">Savings</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="categoryGroup">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="">Select Category</option>
+              <option value="needs">Needs</option>
+              <option value="wants">Wants</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input
+              type="number"
+              id="amount"
+              placeholder="Enter amount"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              id="description"
+              placeholder="Description"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn-primary">Save Transaction</button>
+
+          <p id="errorMessage" class="error"></p>
+        </form>
+      </section>
     </main>
 
     <footer class="footer">

@@ -64,3 +64,101 @@ if (saveUserBtn) {
 }
 
 checkUserSetup();
+
+// STORAGE HELPERS
+function getTransactions() {
+  return JSON.parse(localStorage.getItem("transactions")) || [];
+}
+
+function saveTransactions(data) {
+  localStorage.setItem("transactions", JSON.stringify(data));
+}
+
+function getCurrency() {
+  return localStorage.getItem("currencySymbol") || "$";
+}
+
+// ADD / EDIT PAGE
+const form = document.getElementById("budgetForm");
+const typeSelect = document.getElementById("type");
+const categoryGroup = document.getElementById("categoryGroup");
+const categorySelect = document.getElementById("category");
+
+// Hide category by default
+if (categoryGroup) {
+  categoryGroup.style.display = "none";
+}
+
+// Show category only if expense
+if (typeSelect) {
+  typeSelect.addEventListener("change", function () {
+    if (this.value === "expense") {
+      categoryGroup.style.display = "block";
+    } else {
+      categoryGroup.style.display = "none";
+      categorySelect.value = "";
+    }
+  });
+}
+
+if (form) {
+  const editId = localStorage.getItem("editId");
+
+  if (editId) {
+    const transactions = getTransactions();
+    const transaction = transactions.find((t) => t.id == editId);
+
+    if (transaction) {
+      document.getElementById("type").value = transaction.type;
+      document.getElementById("category").value = transaction.category;
+      document.getElementById("amount").value = transaction.amount;
+      document.getElementById("description").value = transaction.description;
+
+      form.dataset.editing = editId;
+    }
+
+    localStorage.removeItem("editId");
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const type = document.getElementById("type").value;
+    const category = document.getElementById("category").value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const description = document.getElementById("description").value.trim();
+    const errorMessage = document.getElementById("errorMessage");
+
+    if (!type || !amount || amount <= 0 || !description) {
+      errorMessage.textContent =
+        "All required fields must be filled and amount must be positive.";
+      return;
+    }
+
+    // If expense, category is required
+    if (type === "expense" && !category) {
+      errorMessage.textContent = "Please select a category for expense.";
+      return;
+    }
+
+    let transactions = getTransactions();
+    const editingId = form.dataset.editing;
+
+    if (editingId) {
+      transactions = transactions.map((t) =>
+        t.id == editingId ? { ...t, type, category, amount, description } : t,
+      );
+    } else {
+      transactions.push({
+        id: Date.now(),
+        type,
+        category: type === "expense" ? category : null,
+        amount,
+        description,
+      });
+    }
+
+    saveTransactions(transactions);
+    window.location.href = "transactions.html";
+  });
+}
