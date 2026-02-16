@@ -244,3 +244,76 @@ function editTransaction(id) {
   localStorage.setItem("editId", id);
   window.location.href = "add.html";
 }
+
+// DASHBOARD PAGE
+function calculateDashboard() {
+  const transactions = getTransactions();
+  const currency = getCurrency();
+
+  const rule = JSON.parse(localStorage.getItem("budgetRule")) || {
+    needs: 50,
+    wants: 30,
+    savings: 20,
+  };
+
+  let totalIncome = 0;
+  let totalExpenses = 0;
+  let totalSavings = 0;
+
+  transactions.forEach((t) => {
+    if (t.type === "income") {
+      totalIncome += t.amount;
+    } else if (t.type === "expense") {
+      totalExpenses += t.amount;
+    } else if (t.type === "savings") {
+      totalSavings += t.amount;
+    }
+  });
+
+  const balance = totalIncome - totalExpenses - totalSavings;
+
+  const needsLimit = totalIncome * (rule.needs / 100);
+  const wantsLimit = totalIncome * (rule.wants / 100);
+  const savingsTarget = totalIncome * (rule.savings / 100);
+
+  // Update summary numbers
+  if (document.getElementById("totalIncome")) {
+    document.getElementById("totalIncome").textContent =
+      currency + totalIncome.toLocaleString();
+
+    document.getElementById("totalSaved").textContent =
+      currency + totalSavings.toLocaleString();
+
+    document.getElementById("totalExpenses").textContent =
+      currency + totalExpenses.toLocaleString();
+
+    document.getElementById("balance").textContent =
+      currency + balance.toLocaleString();
+
+    // 🔥 Dynamic Rule Title
+    document.getElementById("ruleTitle").textContent =
+      `📊 ${rule.needs} / ${rule.wants} / ${rule.savings} Budget Rule Breakdown`;
+
+    // 🔥 Dynamic Labels
+    document.getElementById("needsLabel").textContent =
+      `Needs (${rule.needs}%)`;
+
+    document.getElementById("wantsLabel").textContent =
+      `Wants (${rule.wants}%)`;
+
+    document.getElementById("savingsLabel").textContent =
+      `Savings (${rule.savings}%)`;
+
+    // 🔥 Dynamic Values
+    document.getElementById("needsLimit").textContent =
+      currency + needsLimit.toLocaleString();
+
+    document.getElementById("wantsLimit").textContent =
+      currency + wantsLimit.toLocaleString();
+
+    document.getElementById("savingsTarget").textContent =
+      currency + savingsTarget.toLocaleString();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", calculateDashboard);
