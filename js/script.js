@@ -235,3 +235,10 @@ function renderTransactions() {
     transactionList.appendChild(div);
   });
 }
+
+function deleteTransaction(id) {
+  let transactions = getTransactions();
+  transactions = transactions.filter((t) => t.id !== id);
+  saveTransactions(transactions);
+  renderTransactions();
+}
