@@ -162,3 +162,76 @@ if (form) {
     window.location.href = "transactions.html";
   });
 }
+
+// ===============================
+// TRANSACTIONS PAGE
+// ===============================
+
+const transactionList = document.getElementById("transactionList");
+
+if (transactionList) {
+  renderTransactions();
+}
+
+function renderTransactions() {
+  let transactions = getTransactions();
+
+  // 🔥 Newest first
+  transactions.sort((a, b) => b.id - a.id);
+
+  const currency = getCurrency();
+
+  transactionList.innerHTML = "";
+
+  if (transactions.length === 0) {
+    transactionList.innerHTML = `
+    <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <h3>No Transactions Yet</h3>
+        <p>Start by adding your first income, expense, or savings entry.</p>
+        <a href="add.html" class="btn-empty">
+            + Add Transaction
+        </a>
+    </div>
+`;
+    return;
+  }
+
+  transactions.forEach((t) => {
+    const sign = t.type === "income" ? "+" : "-";
+    const amountClass =
+      t.type === "income" ? "income-amount" : "expense-amount";
+
+    const div = document.createElement("div");
+    div.classList.add("transaction-card");
+
+    div.innerHTML = `
+            <div class="transaction-info">
+                <p class="transaction-type">
+                    ${t.type.toUpperCase()}
+                    ${t.category ? " - " + t.category : ""}
+                </p>
+
+                <p class="transaction-amount ${amountClass}">
+                    ${sign}${currency}${t.amount.toLocaleString()}
+                </p>
+
+                <p class="transaction-desc">
+                    ${t.description}
+                </p>
+            </div>
+
+            <div class="transaction-actions">
+                <button class="btn-edit" onclick="editTransaction(${t.id})">
+                    ✏ Edit
+                </button>
+
+                <button class="btn-delete" onclick="deleteTransaction(${t.id})">
+                    🗑 Delete
+                </button>
+            </div>
+        `;
+
+    transactionList.appendChild(div);
+  });
+}

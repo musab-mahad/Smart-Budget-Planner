@@ -197,3 +197,88 @@ select:focus {
 .btn-primary:hover {
   background: #16a34a;
 }
+
+/* TRANSACTION GRID */
+.transaction-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.transaction-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* TRANSACTION CARD LAYOUT */
+.transaction-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+/* LEFT SIDE INFO */
+.transaction-info {
+  flex: 1;
+}
+
+.transaction-type {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.transaction-amount {
+  color: #3b82f6;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.transaction-desc {
+  color: #475569;
+}
+
+/* RIGHT SIDE BUTTONS */
+.transaction-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* EDIT BUTTON */
+.btn-edit {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn-edit:hover {
+  background: #2563eb;
+}
+
+/* DELETE BUTTON */
+.btn-delete {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+}
+
+/* Income Amount - Green */
+.income-amount {
+  color: #16a34a;
+  font-weight: bold;
+}
