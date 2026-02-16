@@ -52,5 +52,36 @@
     <footer class="footer">
       <p>© 2026 Smart Budget Planner</p>
     </footer>
+
+    <div id="setupModal" class="modal">
+      <div class="modal-content">
+        <h2>Welcome 👋</h2>
+        <p>Set up your profile and budgeting rule</p>
+
+        <input type="text" id="userNameInput" placeholder="Your Name" />
+        <input
+          type="text"
+          id="currencyInput"
+          placeholder="Currency Symbol ($, €, KSh)"
+        />
+
+        <h3>Budget Rule (%)</h3>
+
+        <input type="number" id="needsPercent" placeholder="Needs %" min="0" />
+        <input type="number" id="wantsPercent" placeholder="Wants %" min="0" />
+        <input
+          type="number"
+          id="savingsPercent"
+          placeholder="Savings %"
+          min="0"
+        />
+
+        <button id="saveUserBtn" class="btn-primary">Save Settings</button>
+
+        <p id="setupError" class="error"></p>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
   </body>
 </html>
